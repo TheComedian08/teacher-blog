@@ -6,8 +6,16 @@
     </v-toolbar-title>
     <v-spacer />
     <v-toolbar-title>{{ dateTime.toLocaleString('ru') }}</v-toolbar-title>
-    <v-switch hide-details v-model="$vuetify.theme.dark" style="margin-left: 10px" label="Темная тема" color="black" />
-    <v-btn @click="sighOut">sign out</v-btn>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn @click="sighOut" icon v-on="on">
+          <v-icon>
+            exit_to_app
+          </v-icon>
+        </v-btn>
+      </template>
+      <span>Выйти</span>
+    </v-tooltip>
   </v-app-bar>
 </template>
 
