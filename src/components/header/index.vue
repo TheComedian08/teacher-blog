@@ -7,10 +7,14 @@
     <v-spacer />
     <v-toolbar-title>{{ dateTime.toLocaleString('ru') }}</v-toolbar-title>
     <v-switch hide-details v-model="$vuetify.theme.dark" style="margin-left: 10px" label="Темная тема" color="black" />
+    <v-btn @click="sighOut">sign out</v-btn>
   </v-app-bar>
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 export default {
   name: 'Header',
   props: {
@@ -22,6 +26,14 @@ export default {
   methods: {
     toggleSidebar(isShow) {
       this.$emit('toggleSidebar', isShow)
+    },
+    sighOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          console.log('yee')
+        })
     }
   },
   created() {

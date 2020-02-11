@@ -3,9 +3,9 @@
     <v-card-title>Новости</v-card-title>
     <v-card-text class="d-flex justify-space-between flex-column">
       <v-hover v-slot:default="{ hover }" v-for="(article, index) in articles" :key="index">
-        <v-card flat :elevation="hover ? 12 : 2" style="margin-bottom: 16px">
+        <v-card flat :elevation="hover ? 12 : 2" style="margin-bottom: 16px" @click="goToArticle(article.id)">
           <v-card-title>{{ article.title }}</v-card-title>
-          <v-card-subtitle>{{ article.date }}</v-card-subtitle>
+          <v-card-subtitle>{{ new Date(article.createdAt.seconds * 1000).toLocaleString('ru') }}</v-card-subtitle>
           <v-card-text>{{ article.text }}</v-card-text>
         </v-card>
       </v-hover>
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { db } from '../main'
+
 export default {
   name: 'News',
   data: () => ({
@@ -37,6 +39,16 @@ export default {
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ducimus voluptate harum quas vel aliquid delectus expedita aliquam nesciunt cum. Laboriosam quam iste libero optio rerum voluptatibus ab explicabo in.'
       }
     ]
-  })
+  }),
+  firestore() {
+    return {
+      articles: db.collection('articles')
+    }
+  },
+  methods: {
+    goToArticle(id) {
+      this.$router.push('/article/' + id)
+    }
+  }
 }
 </script>

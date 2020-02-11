@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <Header @toggleSidebar="toggleSidebar" :isShowSidebar="isShowSidebar" />
-    <Sidebar :isShowSidebar="isShowSidebar" @toggleSidebar="toggleSidebar" />
+    <Header @toggleSidebar="toggleSidebar" :isShowSidebar="isShowSidebar" v-if="!isLoginOrRegisterPage" />
+    <Sidebar :isShowSidebar="isShowSidebar" @toggleSidebar="toggleSidebar" v-if="!isLoginOrRegisterPage" />
     <v-content>
       <router-view />
     </v-content>
@@ -23,6 +23,11 @@ export default {
   methods: {
     toggleSidebar(isShow) {
       this.isShowSidebar = isShow
+    }
+  },
+  computed: {
+    isLoginOrRegisterPage() {
+      return this.$route.path.includes('login') || this.$route.path.includes('register')
     }
   }
 }
