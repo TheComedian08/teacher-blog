@@ -3,10 +3,18 @@
     <v-card-title>Новости</v-card-title>
     <v-card-text class="d-flex justify-space-between flex-column">
       <v-hover v-slot:default="{ hover }" v-for="(article, index) in articles" :key="index">
-        <v-card flat :elevation="hover ? 12 : 2" style="margin-bottom: 16px" @click="goToArticle(article.id)">
+        <v-card flat :elevation="hover ? 12 : 2" style="margin-bottom: 16px">
           <v-card-title>{{ article.title }}</v-card-title>
           <v-card-subtitle>{{ new Date(article.createdAt.seconds * 1000).toLocaleString('ru') }}</v-card-subtitle>
           <v-card-text>{{ article.text }}</v-card-text>
+          <v-card-actions class="d-flex justify-space-between">
+            <v-btn icon link :to="/article/ + article.id">
+              <v-icon>visibility</v-icon>
+            </v-btn>
+            <v-btn icon @click="deleteArticle(article.id)">
+              <v-icon color="red">delete</v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-hover>
     </v-card-text>
@@ -48,6 +56,11 @@ export default {
   methods: {
     goToArticle(id) {
       this.$router.push('/article/' + id)
+    },
+    deleteArticle(id) {
+      db.collection('articles')
+        .doc(id)
+        .delete()
     }
   }
 }

@@ -21,19 +21,20 @@
       </v-list-item-group>
     </v-list>
     <template v-slot:append>
-      <div class="pa-2">
-        <v-switch
-          hide-details
-          v-model="$vuetify.theme.dark"
-          style="margin-left: 10px"
-          label="Темная тема"
-          color="black"
-        />
-      </div>
-      <div class="pa-2" v-if="magicCounter > 6">
-        <v-btn text @click="handleDialogCreators">
+      <div class="pa-2" v-show="magicCounter > 6">
+        <v-btn text @click="handleDialogCreators" block>
           О создателях
         </v-btn>
+      </div>
+      <div class="pa-2">
+        <v-switch
+          inset
+          hide-details
+          v-model="$vuetify.theme.dark"
+          label="Темная тема"
+          color="black"
+          style="padding-left: 10%"
+        />
       </div>
     </template>
     <GodOfJs :isShowDialog="isShowDialogCreators" @handleDialog="handleDialogCreators" />
