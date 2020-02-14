@@ -28,8 +28,8 @@ export default {
     return {
       articles: [
         {
-          title: '',
-          text: '',
+          title: null,
+          text: null,
           createdAt: {
             nanoseconds: null,
             seconds: null
@@ -37,8 +37,8 @@ export default {
         }
       ],
       lastRecord: {
-        title: '',
-        text: '',
+        title: 'Записей нет',
+        text: 'Пусто',
         createdAt: {
           nanoseconds: null,
           seconds: null
@@ -48,6 +48,7 @@ export default {
   },
   async created() {
     //TODO
+
     await this.$bind('articles', db.collection('articles'))
     this.lastRecord = this.articles[0]
   }
